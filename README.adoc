@@ -1,0 +1,8 @@
+= Simple REST API with Spring Integration
+
+Components used:
+
+- Spring Intregration
+- Spring Cloud Stream
+- Spring HTTP
+- Spring Web
