@@ -21,12 +21,12 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "2021.0.3-SNAPSHOT")
+	set('springCloudVersion', "2021.0.3")
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-integration'
-	implementation 'org.springframework.cloud:spring-cloud-stream'
+	implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
 	implementation 'org.springframework.integration:spring-integration-http'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
