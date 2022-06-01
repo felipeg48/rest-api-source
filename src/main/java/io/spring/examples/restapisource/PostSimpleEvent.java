@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
-import org.springframework.integration.dsl.MessageChannels;
 import org.springframework.integration.http.dsl.Http;
 
 
@@ -22,7 +21,6 @@ public class PostSimpleEvent {
         return IntegrationFlows.from(Http.inboundGateway("/event")
                         .requestMapping(m -> m.methods(HttpMethod.POST))
                         .requestPayloadType(SimpleEvent.class)
-                        .replyChannel(MessageChannels.queue().get())
                 )
                 .<SimpleEvent>handle((p,h) -> {
                     rabbitTemplate.convertAndSend(p);
