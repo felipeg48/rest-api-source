@@ -6,3 +6,47 @@ Components used:
 - Spring Cloud Stream
 - Spring HTTP
 - Spring Web
+
+
+== RabbitMQ Setup
+
+*Pre-requirements*
+
+- Docker Installed
+- cUrl
+
+
+*Setup*
+
+. Start up the RabbitMQ container:
++
+[source,shell]
+----
+docker run -d --rm --name rabbit --hostname rabbitmq -p 15672:15672 -p 5672:5672 rabbitmq:management-alpine
+----
+
+. Create the Exchange, Queue and Binding for this example:
++
+[source,shell]
+----
+curl -XPUT -u guest:guest \
+-H "Conten-Type: application/json" \
+-d '{"type":"topic","auto_delete":false,"durable":true,"internal":false,"arguments":{}}' \
+http://localhost:15672/api/exchanges/%2F/simple
+----
++
+[source,shell]
+----
+curl -XPUT -u guest:guest \
+-d '{"auto_delete":false,"durable":true,"arguments":{},"node":"rabbit@rabbitmq"}' \
+http://localhost:15672/api/queues/%2F/inbox
+----
++
+[source,shell]
+----
+curl -XPOST -u guest:guest \
+-d '{"routing_key":"#", "arguments":{}}' \
+http://localhost:15672/api/bindings/%2F/e/simple/q/inbox
+----
+
+
